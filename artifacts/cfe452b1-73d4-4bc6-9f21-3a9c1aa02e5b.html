@@ -1,271 +1,263 @@
-```html
 <!doctype html>
-<html lang="en" class="bg-color-background">
+<html lang="en" class="bg-background">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width,initial-scale=1.0" name="viewport">
-    <title>Innovate AI - Marketing Content Generation Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Platform - Brand Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --color-primary: #2f4f4f;
-            --color-action: #f35454;
-            --color-text-primary: #282828;
-            --color-text-secondary: #6c757d;
-            --color-background: #fff;
-            --color-surface: #f0f8ff;
-            --color-border: #eaeaea;
-            --font-family-primary: "Poppins", sans-serif;
-            --font-size-h1: 48px;
-            --font-size-h2: 34px;
-            --font-size-h3: 28px;
-            --font-size-body: 14px;
-            --font-size-small: 12px;
-            --border-radius: 6px;
-            --spacing-md: 1rem;
-            --spacing-lg: 1.5rem;
+            --primary: #4A90E2;
+            --action: #F39C12;
+            --textPrimary: #282828;
+            --textSecondary: #6C757D;
+            --background: #FFFFFF;
+            --surface: #F4F4F4;
+            --border: #E0E0E0;
+            --border-card: #EADFCF;
+            --metric1: #6A57D7;
+            --metric2: #8B7AE8;
         }
-
+        
         body {
-            font-family: var(--font-family-primary);
-            background-color: var(--color-background);
-            color: var(--color-text-primary);
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--textPrimary);
         }
 
         .card {
             backdrop-filter: blur(10px);
-            background: rgba(var(--color-surface), 0.8);
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(var(--background), 0.8);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-            transform: translateY(-2px);
         }
 
         .metric-card {
-            background: linear-gradient(135deg, var(--color-primary), #2aa198);
+            background: linear-gradient(135deg, var(--metric1), var(--metric2));
             color: white;
-            border-radius: var(--border-radius);
-            padding: var(--spacing-md);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #3d7f7f 100%);
+            background: linear-gradient(135deg, var(--primary), #6A57D7);
             color: white;
             border: none;
-            transition: all 0.3s ease;
-            padding: var(--spacing-md) var(--spacing-lg);
-            border-radius: var(--border-radius);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #2a7373 0%, #2a9f9f 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(47, 79, 79, 0.3);
-        }
-
-        .input-field {
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius);
-            padding: var(--spacing-md);
-            transition: all 0.3s ease;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(47, 79, 79, 0.1);
-        }
-
-        .drag-drop-area {
-            border: 2px dashed var(--color-border);
-            border-radius: var(--border-radius);
-            background-color: rgba(240, 248, 255, 0.5);
-            transition: all 0.3s ease;
-            padding: var(--spacing-lg);
-            text-align: center;
-        }
-
-        .drag-drop-area:hover, .drag-drop-area.drag-over {
-            border-color: var(--color-primary);
-            background-color: rgba(47, 79, 79, 0.1);
+            box-shadow: 0 6px 16px rgba(var(--primary), 0.3);
         }
 
         .progress-bar {
             height: 8px;
             border-radius: 4px;
-            background-color: var(--color-surface);
+            background-color: var(--surface);
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--color-primary), #2aa198);
+            background: linear-gradient(90deg, var(--primary), #8B7AE8);
             border-radius: 4px;
+        }
+
+        .stat-card {
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(224, 224, 224, 0.5);
+            padding: 20px;
+        }
+
+        .drag-drop-area {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            background-color: rgba(244, 244, 244, 0.5);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 40px;
+            cursor: pointer;
+        }
+
+        .drag-drop-area:hover,
+        .drag-drop-area.drag-over {
+            border-color: var(--primary);
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        .badge-primary {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .badge-success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+
+        .badge-warning {
+            background: rgba(241, 196, 15, 0.1);
+            color: #f1c40f;
+        }
+
+        .input-field {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 87, 215, 0.1);
         }
     </style>
 </head>
-<body>
+<body class="bg-background text-textPrimary min-h-screen">
     <header class="sticky top-0 bg-white/95 backdrop-blur-xl border-b border-slate-200/60 z-50 py-3 px-6">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <h1 class="text-xl font-bold text-color-primary">Innovate AI</h1>
-            </div>
-            <div class="flex items-center space-x-4">
-                <div class="flex items-center">
-                    <span class="text-sm font-medium">John Smith</span>
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-primary to-purple-600 flex items-center justify-center">
+                    <span class="text-white font-bold">EC</span>
                 </div>
+                <div>
+                    <h1 class="text-xl font-bold text-primary">E-Commerce Dashboard</h1>
+                    <p class="text-xs text-textSecondary">Empowering Local Brands</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button class="p-2 rounded-full hover:bg-surface transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-textSecondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-purple-600 flex items-center justify-center text-white font-semibold">JS</div>
+                <span class="text-sm font-medium">John Smith</span>
             </div>
         </div>
     </header>
 
     <main class="px-6 py-8 max-w-7xl mx-auto">
+        <!-- Hero Section -->
         <section class="mb-10">
             <div class="flex justify-between items-start mb-6">
                 <div>
-                    <h1 class="text-3xl font-bold mb-2">Marketing Content Generation Dashboard</h1>
-                    <p class="text-lg text-color-text-secondary max-w-3xl">Empower your e-commerce business with AI-generated marketing content that saves time and resources.</p>
+                    <h1 class="text-3xl font-bold mb-2">E-Commerce Platform Overview</h1>
+                    <p class="text-lg text-textSecondary max-w-3xl">Launch, manage, and expand your local brand with our comprehensive platform.</p>
                 </div>
-                <button class="btn-primary flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    Generate New Content
-                </button>
+                <div>
+                    <button class="btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">Start New Store</button>
+                </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                 <div class="metric-card">
-                    <div class="text-sm mb-1">Generated Content</div>
-                    <div class="text-2xl font-bold">3,214</div>
-                    <div class="text-sm opacity-80 mt-auto">Target: 5,000</div>
+                    <div>Stores Created</div>
+                    <div class="text-2xl font-bold">105</div>
+                    <div class="text-sm opacity-80 mt-auto">Target: 150</div>
                     <div class="progress-bar mt-3">
-                        <div class="progress-fill" style="width: 64%"></div>
+                        <div class="progress-fill" style="width: 70%"></div>
                     </div>
                 </div>
                 <div class="metric-card">
-                    <div class="text-sm mb-1">Paying Users</div>
-                    <div class="text-2xl font-bold">143</div>
-                    <div class="text-sm opacity-80 mt-auto">Target: 200</div>
+                    <div>Active Subscriptions</div>
+                    <div class="text-2xl font-bold">84</div>
+                    <div class="text-sm opacity-80 mt-auto">Target: 100</div>
                     <div class="progress-bar mt-3">
-                        <div class="progress-fill" style="width: 72%; background: linear-gradient(90deg, #f35454, #f4b557);"></div>
+                        <div class="progress-fill" style="width: 80%"></div>
                     </div>
                 </div>
                 <div class="metric-card">
-                    <div class="text-sm mb-1">Engagement Rate</div>
-                    <div class="text-2xl font-bold">24.3%</div>
-                    <div class="text-sm opacity-80 mt-auto">Industry avg: 18%</div>
+                    <div>Total Transactions</div>
+                    <div class="text-2xl font-bold">$12,340</div>
+                    <div class="text-sm opacity-80 mt-auto">Target: $15,000</div>
                     <div class="progress-bar mt-3">
-                        <div class="progress-fill" style="width: 82%; background: linear-gradient(90deg, #2ecc71, #27ae60);"></div>
+                        <div class="progress-fill" style="width: 82%"></div>
                     </div>
                 </div>
                 <div class="metric-card">
-                    <div class="text-sm mb-1">Time Saved</div>
-                    <div class="text-2xl font-bold">1,428h</div>
-                    <div class="text-sm opacity-80 mt-auto">≈ 2 FT Employees</div>
+                    <div>New Users This Month</div>
+                    <div class="text-2xl font-bold">42</div>
+                    <div class="text-sm opacity-80 mt-auto">Target: 50</div>
                     <div class="progress-bar mt-3">
-                        <div class="progress-fill" style="width: 78%; background: linear-gradient(90deg, #3498db, #2980b9);"></div>
+                        <div class="progress-fill" style="width: 84%"></div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Content Creation Hub -->
         <section class="card p-6 mb-10">
-            <h2 class="text-2xl font-semibold mb-6">Content Creation Hub</h2>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Content Creation Hub</h2>
+            </div>
+            
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2">
                     <div class="mb-5">
-                        <label class="block text-sm font-medium mb-2">Product URL or Description</label>
-                        <textarea class="input-field w-full min-h-[120px]" placeholder="Paste product link or describe your product..."></textarea>
-                        <div class="text-xs text-color-text-secondary mt-1">AI will analyze product details to generate relevant content.</div>
+                        <label class="block text-sm font-medium mb-2">Add New Product</label>
+                        <input type="text" class="input-field w-full" placeholder="Product name...">
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Content Type</label>
-                            <select class="input-field w-full">
-                                <option>Facebook Ad</option>
-                                <option>Instagram Post</option>
-                                <option>Promotional Email</option>
-                                <option>Product Description</option>
-                                <option>Google Ad</option>
-                                <option>Banner Design</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Brand Tone</label>
-                            <select class="input-field w-full">
-                                <option>Casual & Friendly</option>
-                                <option>Professional</option>
-                                <option>Enthusiastic</option>
-                                <option>Luxury</option>
-                                <option>Humorous</option>
-                                <option>Custom...</option>
-                            </select>
-                        </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium mb-2">Product Description</label>
+                        <textarea class="input-field w-full min-h-[120px]" placeholder="Describe your product..."></textarea>
                     </div>
 
                     <div class="mb-5">
-                        <label class="block text-sm font-medium mb-2">Brand Guidelines (Optional)</label>
-                        <div class="drag-drop-area">
-                            <p>Drag & drop brand guidelines PDF or image</p>
-                            <p class="text-xs text-color-text-secondary">Max file size: 10MB</p>
-                        </div>
+                        <label class="block text-sm font-medium mb-2">Product Images (Upload)</label>
+                        <div class="drag-drop-area">Drag & drop files here or click to upload</div>
                     </div>
-
+                    
                     <div class="flex justify-end">
-                        <button class="btn-primary flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                            Generate Content
+                        <button class="btn-primary px-8 py-3 rounded-lg font-semibold flex items-center">
+                            Add Product
                         </button>
                     </div>
                 </div>
                 
                 <div>
-                    <div class="card h-full p-5">
-                        <h3 class="font-semibold mb-3">Content Templates</h3>
+                    <div class="card p-5 h-full">
+                        <h3 class="font-semibold mb-3">Product Templates</h3>
                         <div class="space-y-3">
-                            <div class="flex items-center p-3 border border-color-border rounded-lg cursor-pointer hover:border-color-primary">
-                                <div class="bg-color-surface p-2 rounded-lg mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-color-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                                    </svg>
-                                </div>
+                            <div class="flex items-center p-3 border border-border rounded-lg cursor-pointer hover:border-primary">
+                                <div class="bg-surface p-2 rounded-lg mr-3">Product Description</div>
                                 <div>
-                                    <div class="font-medium">E-commerce Product Description</div>
-                                    <div class="text-xs text-color-text-secondary">Detailed product narratives</div>
+                                    <div class="font-medium">Basic Template</div>
+                                    <div class="text-xs text-textSecondary">Simple structure for descriptions</div>
                                 </div>
                             </div>
-                            <div class="flex items-center p-3 border border-color-border rounded-lg cursor-pointer hover:border-color-primary">
-                                <div class="bg-color-surface p-2 rounded-lg mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-color-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
+                            
+                            <div class="flex items-center p-3 border border-border rounded-lg cursor-pointer hover:border-primary">
+                                <div class="bg-surface p-2 rounded-lg mr-3">Ad Copy</div>
                                 <div>
-                                    <div class="font-medium">Social Media Video Script</div>
-                                    <div class="text-xs text-color-text-secondary">Short video content scripts</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center p-3 border border-color-border rounded-lg cursor-pointer hover:border-color-primary">
-                                <div class="bg-color-surface p-2 rounded-lg mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-color-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div class="font-medium">Email Newsletter</div>
-                                    <div class="text-xs text-color-text-secondary">Engaging customer emails</div>
+                                    <div class="font-medium">Engaging Ad Template</div>
+                                    <div class="text-xs text-textSecondary">Ready-to-use ad copy templates</div>
                                 </div>
                             </div>
                         </div>
@@ -274,23 +266,52 @@
             </div>
         </section>
 
-        <!-- Additional Content Sections Would Follow Here -->
+        <!-- Performance Metrics -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+            <section class="card p-6">
+                <h2 class="text-2xl font-semibold mb-6">Performance Metrics</h2>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="stat-card">
+                        <div class="text-sm text-textSecondary mb-1">Monthly Revenue</div>
+                        <div class="text-xl font-bold">$2,300</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-sm text-textSecondary mb-1">Total Users</div>
+                        <div class="text-xl font-bold">1,234</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-sm text-textSecondary mb-1">Conversion Rate</div>
+                        <div class="text-xl font-bold">4.6%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-sm text-textSecondary mb-1">Support Tickets</div>
+                        <div class="text-xl font-bold">15</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card p-6">
+                <h2 class="text-2xl font-semibold mb-6">Sales Analytics</h2>
+                <canvas id="salesChart" height="200"></canvas>
+            </section>
+        </div>
     </main>
 
     <script>
-        // JavaScript for Charts and Interactivity
+        // Initialize charts
         document.addEventListener('DOMContentLoaded', function() {
-            // Chart initialization
-            const ctx = document.getElementById('contentPerformanceChart').getContext('2d');
-            const contentPerformanceChart = new Chart(ctx, {
-                type: 'bar',
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            new Chart(salesCtx, {
+                type: 'line',
                 data: {
-                    labels: ['Social Posts', 'Email Campaigns', 'Product Descriptions', 'Ad Copy', 'Visual Assets'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                     datasets: [{
-                        label: 'Engagement Rate',
-                        data: [28, 22, 18, 32, 26],
-                        backgroundColor: '#2f4f4f',
-                        borderRadius: 6
+                        label: 'Sales ($)',
+                        data: [1200, 1900, 3000, 2500, 2800, 3200],
+                        backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                        borderColor: 'rgba(74, 144, 226, 1)',
+                        fill: true,
+                        borderWidth: 2,
                     }]
                 },
                 options: {
@@ -298,17 +319,66 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return value + '%';
-                                }
+                            grid: {
+                                drawBorder: false
                             }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
                         }
                     }
                 }
             });
+            
+            // Drag and drop functionality
+            const dropArea = document.querySelector('.drag-drop-area');
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                dropArea.classList.add('drag-over');
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('drag-over');
+            }
+
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            function handleFiles(files) {
+                if (files.length) {
+                    alert(`File "${files[0].name}" ready for processing!`);
+                }
+            }
         });
     </script>
 </body>
 </html>
-```
